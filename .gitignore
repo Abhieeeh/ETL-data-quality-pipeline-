@@ -1,0 +1,17 @@
+# Ignore datasets
+data/raw/*.csv
+
+# Ignore generated files
+data/processed/*.csv
+data/invalid/*.csv
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+venv/
+.venv/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/

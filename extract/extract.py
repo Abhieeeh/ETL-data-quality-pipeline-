@@ -1,0 +1,4 @@
+import pandas as pd
+
+def extract_orders(path):
+    return pd.read_csv(path)
