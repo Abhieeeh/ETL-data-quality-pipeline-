@@ -2,10 +2,13 @@ from extract.extract import extract_orders
 from transform.transform_orders import transform_orders
 from validate.validate_orders import validate_orders
 
-from extract.extract import extract_customers
-from transform.transform_customers import transform_customers
-from validate.validate_customers import validate_customers
+# from extract.extract import extract_customers
+# from transform.transform_customers import transform_customers
+# from validate.validate_customers import validate_customers
 
+# from extract.extract import extract_support_tickets
+# from transform.transform_support_tickets import transform_support_tickets
+# from validate.validate_support_ticket import validate_support_ticket
 
 # Extract
 orders=extract_orders("./data/raw/orders.csv")
@@ -20,17 +23,17 @@ valid_orders, invalid_orders=validate_orders(orders)
 valid_orders.to_csv("./data/processed/valid_orders.csv", index=False)
 invalid_orders.to_csv("./data/invalid/invalid_orders.csv", index=False)
 
-# CUSTOMERS
+# # CUSTOMERS
 
-# Extract
-customers=extract_customers("./data/raw/customers.csv")
+# # Extract
+# customers=extract_customers("./data/raw/customers.csv")
 
-# Transform
-customers=transform_customers(customers)
+# # Transform
+# customers=transform_customers(customers)
 
-# Validate
-valid_customers, invalid_customers=validate_customers(customers)
+# # Validate
+# valid_customers, invalid_customers=validate_customers(customers)
 
-# Save the valid and invalid customers to separate CSV files
-valid_customers.to_csv("./data/processed/valid_customers.csv", index=False)
-invalid_customers.to_csv("./data/invalid/invalid_customers.csv", index=False)
+# # Save the valid and invalid customers to separate CSV files
+# valid_customers.to_csv("./data/processed/valid_customers.csv", index=False)
+# invalid_customers.to_csv("./data/invalid/invalid_customers.csv", index=False)

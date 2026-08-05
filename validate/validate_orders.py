@@ -2,25 +2,45 @@ import pandas as pd
 
 def validate_orders(df):
 
-    valid=df.copy()
-    invalid=pd.DataFrame()
+    df=df.copy()
 
-    negative_amount=valid[valid["order_amount"]<0]
-    invalid["validation_error"]="order_amount is negative"
-    invalid=pd.concat([negative_amount, invalid])
 
-    negative_quantity=valid[valid["quantity"]<0]
-    invalid["quantity_validation_error"]="quantity is negative"
-    invalid=pd.concat([invalid, negative_quantity])
+    df["validation_error"]=""
 
-    null_date=valid[valid["order_date"].isna()]
-    invalid["date_validation_error"]="order_date is null"
-    invalid=pd.concat([invalid, null_date])
+    # Negative order_amount
+    df.loc[df["order_amount"]<0, "validation_error"]+="order_amount is negative;"
 
-    valid=df[(
-        df["order_amount"]>=0) &
-        (df["quantity"]>=0) &
-        (df["order_date"].notna()
-    )]
+    # Negative quantity
+    df.loc[df["quantity"]<0, "validation_error"]+=" quantity is negative;"
+
+    # Null order_date
+    df.loc[df["order_date"].isna(), "validation_error"]+=" order_date is null;"
+
+    # Null customer_id
+    df.loc[df["customer_id"].isna(), "validation_error"]+=" customer_id is null;"
+
+    # Null order_id
+    df.loc[df["order_id"].isna(), "validation_error"]+=" order_id is null;"
+
+    # Null product_id
+    df.loc[df["product_id"].isna(), "validation_error"]+=" product_id is null;"
+
+    # Null payment_method
+    df.loc[df["payment_method"].isna(), "validation_error"]+=" payment_method is null;"
+
+    # Null status
+    df.loc[df["status"].isna(), "validation_error"]+=" status is null;"
+
+
+
+    df["validation_error"]=df["validation_error"].str.rstrip(";")
+
+    valid=df[df["validation_error"]==""]
+    valid=valid.drop(columns=["validation_error"])
+    invalid=df[df["validation_error"]!=""]
+
+
+
+    
 
     return valid, invalid
