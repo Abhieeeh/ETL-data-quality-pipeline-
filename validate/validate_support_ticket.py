@@ -1,30 +1,46 @@
 import pandas as pd
 
 def validate_support_ticket(df):
-    valid=df.copy()
-    invalid=pd.DataFrame()
+    df=df.copy()
+
+    df["validation_error"]=""
+
+    # Validate ticket_id
+    df.loc[df["ticket_id"].isna(), "validation_error"]+=" ticket_id is null;"
+
+    # Validate customer_id
+    df.loc[df["customer_id"].isna(), "validation_error"]+=" customer_id is null;"
+
+    # Validate issue_type
+    df.loc[df["issue_type"].isna(), "validation_error"]+=" issue_type is null;"
+
+    # Validate ticket_created
+    df.loc[df["ticket_created"].isna(), "validation_error"]+=" ticket_created date is null;"
+
+    # Validate ticket_resolved
+    df.loc[df["ticket_resolved"].isna(), "validation_error"]+=" ticket_resolved date is null;"
+
+    # Validate support_agent
+    df.loc[df["support_agent"].isna(), "validation_error"]+=" support_agent is null;"
+
+    # Validate sentiment
+    df.loc[df["sentiment"].isna(), "validation_error"]+=" sentiment is null;"
+
+    # Validate resolution_time_hours
+    df.loc[df["resolution_time_hours"].isna(), "validation_error"]+=" resolution_time_hours is null;"
+
+    # Validate resolution_time_hours negative
+    df.loc[df["resolution_time_hours"]<0, "validation_error"]+=" resolution_time_hours is negative;"
+
+    # Validate ticket_resolved date is not earlier than ticket_created date
+    df.loc[df["ticket_resolved"]<df["ticket_created"], "validation_error"]+=" ticket_resolved date is earlier than ticket_created date;"
+
+    df["validation_error"]=df["validation_error"].str.rstrip(";")
 
 
-    nullcreatedates=df[df["ticket_created"].isna()]
-    invalid["date_created_error"]="Ticket created date is null"
-    invalid=pd.concat([invalid, nullcreatedates])
-
-    nullresolvedates=df[df["ticket_resolved"].isna()]
-    invalid["date_resolved_error"]="Ticket resolved date is null"
-    invalid=pd.concat([invalid, nullresolvedates])
-
-    invalid_dates=((df["ticket_resolved"]<df["ticket_created"])).astype(int)
-    invalidDates=valid[invalid_dates==1]
-    invalid["date_validation_error"]="Ticket resolved date is earlier than ticket created date"
-    invalid=pd.concat([invalid, invalidDates])
-
-    
-    valid=df[(
-        df["ticket_created"].notna()) &
-        (df["ticket_resolved"].notna()) &
-        (df["ticket_resolved"]>=df["ticket_created"]
-    )]
-
-    
+    # Split valid and invalid support tickets
+    valid=df[df["validation_error"]==""]
+    valid=valid.drop(columns=["validation_error"])
+    invalid=df[df["validation_error"]!=""]
 
     return valid, invalid
