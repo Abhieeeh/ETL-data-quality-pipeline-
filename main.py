@@ -10,6 +10,8 @@ from extract.extract import extract_support_tickets
 from transform.transform_support_ticket import transform_support_ticket
 from validate.validate_support_ticket import validate_support_ticket
 
+from quality.data_quality import check_data_quality
+from quality.data_quality import error_count
 
 def run_orders_pipeline(path):
     # Extract
@@ -47,10 +49,14 @@ def run_SupportTicket_pipeline(path):
     valid_ticket, invalid_ticket=validate_support_ticket(tickets)
     
     # Save the valid and invalid customers to separate CSV files
-    valid_ticket.to_csv("./data/processed/valid_ticket.csv", index=False)
-    invalid_ticket.to_csv("./data/invalid/invalid_ticket.csv", index=False)
+    valid_ticket.to_csv("./data/processed/valid_tickets.csv", index=False)
+    invalid_ticket.to_csv("./data/invalid/invalid_tickets.csv", index=False)
 
 
 run_orders_pipeline("./data/raw/orders.csv")
 run_customers_pipeline("./data/raw/customers.csv")
 run_SupportTicket_pipeline("./data/raw/support_tickets.csv")
+check_data_quality()
+error_count("./data/invalid/invalid_customers.csv","Customers")
+error_count("./data/invalid/invalid_orders.csv","Orders")
+error_count("./data/invalid/invalid_tickets.csv","Support_ticket")

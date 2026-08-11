@@ -9,8 +9,8 @@ def check_data_quality():
     invalidOrders=pd.read_csv("./data/invalid/invalid_orders.csv")
     validCustomers=pd.read_csv("./data/processed/valid_customers.csv")
     invalidCustomers=pd.read_csv("./data/invalid/invalid_customers.csv")
-    validSupportTicket=pd.read_csv("./data/processed/valid_support_tickets.csv")
-    invalidSupportTicket=pd.read_csv("./data/invalid/invalid_support_tickets.csv")
+    validSupportTicket=pd.read_csv("./data/processed/valid_tickets.csv")
+    invalidSupportTicket=pd.read_csv("./data/invalid/invalid_tickets.csv")
 
 
     data_quality_report = pd.DataFrame({
@@ -38,10 +38,25 @@ def check_data_quality():
     })
 
     data_quality_report.to_csv("./reports/data_quality_report.csv",index=False)
-
-check_data_quality()
    
-
+def error_count(path,dataset):
+    df=pd.read_csv(path)
+    error=(
+        df["validation_error"]
+        .str.split(";")
+        .explode()
+        .str.strip())
+    error=pd.DataFrame(error)
+    error=error[error!=""]
+    count=error.groupby("validation_error").size().values
+    index=error.groupby("validation_error").size().index
+    error_details=pd.DataFrame({
+    "Dataset":dataset,
+    "Error":index,
+    "count":count
+    })
+    error_details.to_csv(f"./reports/{dataset}_error_details.csv",index=False)
+    
 
     
 
