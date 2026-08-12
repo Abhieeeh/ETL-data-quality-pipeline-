@@ -1,7 +1,7 @@
 import pandas as pd
 import logging
 
-logger=logging.getLogger("__name__")
+logger=logging.getLogger(__name__)
 
 def validate_support_ticket(df):
     logger.info("support tickets data validation started")
@@ -47,6 +47,6 @@ def validate_support_ticket(df):
     valid=valid.drop(columns=["validation_error"])
     invalid=df[df["validation_error"]!=""]
 
-    logger.info("support tickets valid and invalid data separeated")
+    logger.info(f"support tickets valid and invalid data separeated, lengthof valid data :{len(valid)} and length of invalid data {len(invalid)}")
 
     return valid, invalid

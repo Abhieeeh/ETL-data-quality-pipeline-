@@ -1,7 +1,7 @@
 import pandas as pd
 import logging
 
-logger=logging.getLogger("__name__")
+logger=logging.getLogger(__name__)
 
 def check_data_quality():
     logger.info("data quality pipeline started")

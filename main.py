@@ -67,7 +67,7 @@ def run_SupportTicket_pipeline(path):
 
     # Transform
     tickets=transform_support_ticket(tickets)
-    logger.info("support tickets data transformation cmpleted")
+    logger.info("support tickets data transformation completed")
 
     # Validate
     valid_ticket, invalid_ticket=validate_support_ticket(tickets)
@@ -85,7 +85,7 @@ logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s-%(levelname)s-%(message)s"
 )
-logger=logging.getLogger("__name__")
+logger=logging.getLogger(__name__)
 
 
 run_orders_pipeline("./data/raw/orders.csv")
