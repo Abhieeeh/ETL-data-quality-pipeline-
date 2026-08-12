@@ -2,7 +2,7 @@ import pandas as pd
 import re
 import logging
 
-logger=logging.getLogger("__name__")
+logger=logging.getLogger(__name__)
 
 def transform_customers(df):
     logger.info("Customer transformation completed")

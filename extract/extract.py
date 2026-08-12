@@ -1,7 +1,7 @@
 import pandas as pd
 import logging
 
-logger=logging.getLogger("__name__")
+logger=logging.getLogger(__name__)
 
 def extract_orders(path):
     try:
@@ -9,7 +9,7 @@ def extract_orders(path):
         logger.info(f"Orders data extracted, length : {len(data)}")
         return data
     except Exception:
-        logger.info("Orders extraction failed")
+        logger.exception("Orders extraction failed")
     
 
     
@@ -20,7 +20,7 @@ def extract_customers(path):
         return data
 
     except Exception:
-        logger.info("Customers Extraction failed")
+        logger.exception("Customers Extraction failed")
 
     
 
@@ -31,7 +31,7 @@ def extract_support_tickets(path):
         logger.info(f"Support ticket data extracted")
         return data
     except Exception:
-        logger.info("Support ticket data extraction failed")
+        logger.exception("Support ticket data extraction failed")
 
 
     

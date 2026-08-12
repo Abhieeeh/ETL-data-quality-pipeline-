@@ -1,6 +1,6 @@
 import pandas as pd
 import logging
-logger=logging.getLogger("__name__")
+logger=logging.getLogger(__name__)
 
 def validate_orders(df):
     logger.info("order data validation started")
@@ -42,6 +42,6 @@ def validate_orders(df):
     valid=valid.drop(columns=["validation_error"])
     invalid=df[df["validation_error"]!=""]
 
-    logger.info("order valid and invalid data separeated")
+    logger.info(f"order valid and invalid data separated, lengthof valid data :{len(valid)} and length of invalid data {len(invalid)}")
 
     return valid, invalid
