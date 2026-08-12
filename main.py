@@ -15,6 +15,16 @@ from quality.data_quality import error_count
 
 import logging
 
+def logging_data():
+    logging.basicConfig(
+    filename="./logs/etl_pipeline.log",
+    level=logging.INFO,
+    format="%(asctime)s-%(levelname)s-%(message)s"
+)
+logging_data()
+logger=logging.getLogger(__name__)
+
+
 def run_orders_pipeline(path):
     logger.info("order pipeline started")
 
@@ -79,19 +89,18 @@ def run_SupportTicket_pipeline(path):
     invalid_ticket.to_csv("./data/invalid/invalid_tickets.csv", index=False)
     logger.info("invalid support tickets data saved as csv, path :/data/invalid/invalid_tickets.csv")
 
+def run_pipeline():
+    run_orders_pipeline("./data/raw/orders.csv")
+    run_customers_pipeline("./data/raw/customers.csv")
+    run_SupportTicket_pipeline("./data/raw/support_tickets.csv")
 
-logging.basicConfig(
-    filename="./logs/etl_pipeline.log",
-    level=logging.INFO,
-    format="%(asctime)s-%(levelname)s-%(message)s"
-)
-logger=logging.getLogger(__name__)
+def quality_report():
+    check_data_quality()
+    error_count("./data/invalid/invalid_customers.csv","Customers")
+    error_count("./data/invalid/invalid_orders.csv","Orders")
+    error_count("./data/invalid/invalid_tickets.csv","Support_ticket")
 
 
-run_orders_pipeline("./data/raw/orders.csv")
-run_customers_pipeline("./data/raw/customers.csv")
-run_SupportTicket_pipeline("./data/raw/support_tickets.csv")
-check_data_quality()
-error_count("./data/invalid/invalid_customers.csv","Customers")
-error_count("./data/invalid/invalid_orders.csv","Orders")
-error_count("./data/invalid/invalid_tickets.csv","Support_ticket")
+run_pipeline()
+quality_report()
+
