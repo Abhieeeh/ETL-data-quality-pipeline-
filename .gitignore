@@ -4,6 +4,8 @@ data/raw/*.csv
 # Ignore generated files
 data/processed/*.csv
 data/invalid/*.csv
+data/reports/*.csv
+logs/*.log
 
 # Python cache
 __pycache__/

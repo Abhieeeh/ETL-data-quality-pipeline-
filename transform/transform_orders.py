@@ -1,6 +1,11 @@
 import pandas as pd
+import logging
+
+logger=logging.getLogger("__name__")
+
 
 def transform_orders(df):
+    logger.info("order data transformation started")
     df=df.copy()
     n=df.duplicated().sum()
     if n>0:
