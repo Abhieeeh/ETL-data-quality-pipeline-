@@ -1,7 +1,11 @@
 import pandas as pd
+import logging
+
+logger=logging.getLogger("__name__")
 
 #,device_id(s),source
 def validate_customers(df):
+    logger.info("customers data validation started")
 
     df=df.copy()
     df["validation_error"]=""
@@ -53,5 +57,7 @@ def validate_customers(df):
     valid = df[df["validation_error"] ==""]
     valid = valid.drop(columns=["validation_error"])
     invalid = df[df["validation_error"] != ""]
+    logger.info("customers valid and invalid data separeated")
+
 
     return valid, invalid

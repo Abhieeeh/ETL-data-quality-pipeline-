@@ -1,6 +1,8 @@
 import pandas as pd
-
+import logging
+logger=logging.getLogger("__name__") 
 def transform_support_ticket(df):
+    logger.info("support_tickets data transformation started")
 
     df=df.copy()
 

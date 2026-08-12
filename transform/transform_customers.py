@@ -1,7 +1,11 @@
 import pandas as pd
 import re
+import logging
+
+logger=logging.getLogger("__name__")
 
 def transform_customers(df):
+    logger.info("Customer transformation completed")
     df=df.copy()
 
     # Remove duplicates
@@ -21,5 +25,5 @@ def transform_customers(df):
     # Convert dob and signup_date to datetime
     df["dob"] = pd.to_datetime(df["dob"], errors='coerce')  
     df["signup_date"] = pd.to_datetime(df["signup_date"], errors='coerce')
-    
+
     return df

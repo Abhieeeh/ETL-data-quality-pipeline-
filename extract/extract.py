@@ -1,12 +1,37 @@
 import pandas as pd
+import logging
+
+logger=logging.getLogger("__name__")
 
 def extract_orders(path):
-    return pd.read_csv(path)
+    try:
+        data= pd.read_csv(path)
+        logger.info(f"Orders data extracted, length : {len(data)}")
+        return data
+    except Exception:
+        logger.info("Orders extraction failed")
+    
 
-
+    
 def extract_customers(path):
-    return pd.read_csv(path)
+    try:
+        data = pd.read_csv(path)
+        logger.info(f"Customers data extracted{len(data)}")
+        return data
+
+    except Exception:
+        logger.info("Customers Extraction failed")
+
+    
 
 
 def extract_support_tickets(path):
-    return pd.read_csv(path)
+    try:
+        data = pd.read_csv(path)
+        logger.info(f"Support ticket data extracted")
+        return data
+    except Exception:
+        logger.info("Support ticket data extraction failed")
+
+
+    
