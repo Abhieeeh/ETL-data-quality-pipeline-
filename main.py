@@ -100,7 +100,11 @@ def quality_report():
     error_count("./data/invalid/invalid_orders.csv","Orders")
     error_count("./data/invalid/invalid_tickets.csv","Support_ticket")
 
+def main():
+    run_pipeline()
+    quality_report()
 
-run_pipeline()
-quality_report()
+main()
+
+
 
