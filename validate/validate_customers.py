@@ -29,9 +29,11 @@ def validate_customers(df):
     df.loc[df["country"].isna(), "validation_error"]+=" country is null;"
 
     # Validate dob
+    df["dob"] = pd.to_datetime(df["dob"], errors='coerce')  
     df.loc[df["dob"].isna(), "validation_error"]+=" dob is null;"
 
     # Validate signup_date
+    df["signup_date"] = pd.to_datetime(df["signup_date"], errors='coerce')
     df.loc[df["signup_date"].isna(), "validation_error"]+=" signup_date is null;"
 
     # Validate age
