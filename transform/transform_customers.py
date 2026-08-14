@@ -25,5 +25,6 @@ def transform_customers(df):
     # Convert dob and signup_date to datetime
     df["dob"] = pd.to_datetime(df["dob"], errors='coerce')  
     df["signup_date"] = pd.to_datetime(df["signup_date"], errors='coerce')
+    df["age"] = (df["signup_date"]-df["dob"]).dt.days/365.25
 
     return df

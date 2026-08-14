@@ -29,18 +29,18 @@ def validate_customers(df):
     df.loc[df["country"].isna(), "validation_error"]+=" country is null;"
 
     # Validate dob
-    df["dob"] = pd.to_datetime(df["dob"], errors='coerce')  
     df.loc[df["dob"].isna(), "validation_error"]+=" dob is null;"
 
     # Validate signup_date
-    df["signup_date"] = pd.to_datetime(df["signup_date"], errors='coerce')
     df.loc[df["signup_date"].isna(), "validation_error"]+=" signup_date is null;"
 
     # Validate age
-    df["age"] = (df["signup_date"]-df["dob"]).dt.days/365.25
+    
     df.loc[df["age"]<18, "validation_error"] += "Customer is under 18;"
 
     # Validate email
+    emailpattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    df['email'] = df['email'].where(df['email'].str.match(emailpattern, na=False))
     df.loc[df["email"].isna(), "validation_error"] += "Email is null;"
 
     # Validate phone number

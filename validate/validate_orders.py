@@ -17,6 +17,7 @@ def validate_orders(df):
     df.loc[df["quantity"]<0, "validation_error"]+=" quantity is negative;"
 
     # Null order_date
+    df["order_date"] = pd.to_datetime(df["order_date"], errors='coerce')
     df.loc[df["order_date"].isna(), "validation_error"]+=" order_date is null;"
 
     # Null customer_id
