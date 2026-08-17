@@ -51,7 +51,7 @@ def test_invalid_email():
     assert len(invalid)==1
     assert len(valid)==0
 
-def test_age():
+def test_phone():
 
     df=pd.DataFrame({
        "customer_id":[2],
@@ -64,7 +64,30 @@ def test_age():
        "country":["ind"],
        "dob":["19/02/2001"],
        "signup_date":["25/09/2000"],
-       "age":[17],
+       "age":[19],
+       "email":["xyz@gmail.com"],
+       "phone_number":["62823163436282316343"],
+       "device_id(s)":["5485"],
+       "source":["referral"]
+       })
+    valid,invalid=validate_customers(df)
+    assert len(invalid)==1
+    assert len(valid)==0
+
+def test_gender():
+
+    df=pd.DataFrame({
+       "customer_id":[2],
+       "gender":["S"],
+       "first_name":["John"],
+       "last_name":["Joe"],
+       "address":["abcd"],
+       "city":["xyz"],
+       "state":["pqr"],
+       "country":["ind"],
+       "dob":["19/02/2001"],
+       "signup_date":["25/09/2000"],
+       "age":[19],
        "email":["xyz@gmail.com"],
        "phone_number":["6282316343"],
        "device_id(s)":["5485"],
