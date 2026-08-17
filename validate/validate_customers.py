@@ -44,7 +44,7 @@ def validate_customers(df):
     df.loc[df["email"].isna(), "validation_error"] += "Email is null;"
 
     # Validate phone number
-    phone_pattern = r'^\d{2,10}$'
+    phone_pattern = r'^\d{2,15}$'
     df.loc[~df["phone_number"].str.match(phone_pattern,na=False), "validation_error"] += "Invalid phone number format;"
 
     # Validate device_id
