@@ -1,0 +1,233 @@
+/* General page styling */
+body {
+    background-color: #121212;
+    color: #e0e0e0;
+    font-family: 'Courier New', Courier, monospace;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+/* Container */
+.dashboard-container {
+    max-width: 500px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Terminal Outer Box */
+.terminal-box {
+    border: 2px solid #ffffff;
+    background-color: #1e1e1e;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Header line */
+.terminal-header {
+    text-align: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 15px 0;
+    border-bottom: 2px solid #ffffff;
+    letter-spacing: 1px;
+}
+
+/* Tabs Section (Datasets) */
+.dataset-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 2px solid #ffffff;
+}
+
+/* Tab button formatting */
+.tab-btn {
+    background: none;
+    border: none;
+    color: #888888;
+    padding: 15px 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.2s, color 0.2s;
+    border-right: 1px solid #444444;
+}
+
+.tab-btn:last-child {
+    border-right: none;
+}
+
+.tab-btn:hover {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.tab-btn.active {
+    background-color: #333333;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.tab-label {
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.tab-value {
+    font-size: 1.1rem;
+}
+
+/* Secondary stats grid */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 20px 10px;
+    border-bottom: 2px solid #ffffff;
+    text-align: center;
+}
+
+.metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.metric-label {
+    font-size: 0.85rem;
+    color: #aaaaaa;
+    text-transform: uppercase;
+}
+
+.metric-value {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+/* Report Section */
+.report-section {
+    padding: 20px;
+    border-bottom: 2px solid #ffffff;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    text-transform: uppercase;
+    border-bottom: 1px dashed #555555;
+    padding-bottom: 5px;
+}
+
+.error-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.error-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.error-name {
+    color: #dddddd;
+}
+
+.error-count {
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.empty-state {
+    color: #777777;
+    text-align: center;
+    font-style: italic;
+    padding: 10px 0;
+}
+
+/* Actions Section */
+.actions-section {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    background-color: #151515;
+}
+
+#run-btn {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    padding: 10px 20px;
+    transition: transform 0.1s, color 0.2s;
+    font-weight: bold;
+}
+
+#run-btn:hover {
+    color: #4CAF50;
+    transform: scale(1.05);
+}
+
+#run-btn:disabled {
+    color: #666666;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Execution logs card */
+.log-container {
+    border: 1px solid #444444;
+    background-color: #0b0b0b;
+    padding: 15px;
+    font-size: 0.8rem;
+    max-height: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.log-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 5px;
+    color: #888888;
+    font-weight: bold;
+}
+
+.close-logs-btn {
+    background: none;
+    border: none;
+    color: #ff5555;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.8rem;
+}
+
+.close-logs-btn:hover {
+    text-decoration: underline;
+}
+
+.log-output {
+    margin: 0;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-all;
+    color: #a0a0a0;
+    line-height: 1.4;
+    flex-grow: 1;
+}
