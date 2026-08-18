@@ -104,7 +104,8 @@ def main():
     run_pipeline()
     quality_report()
 
-main()
+if __name__=="__main__":
+    main()
 
 
 
