@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETL Data Quality Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Dashboard Outer Border -->
+        <div class="terminal-box">
+            
+            <!-- Header Section -->
+            <div class="terminal-header">
+                ETL DATA QUALITY DASHBOARD
+            </div>
+            
+            <!-- Tabs Section (Datasets) -->
+            <div class="dataset-tabs">
+                <button class="tab-btn active" id="tab-customers" onclick="switchTab('customers')">
+                    <span class="tab-label">Customers</span>
+                    <span class="tab-value" id="val-customers-total">0</span>
+                </button>
+                <button class="tab-btn" id="tab-orders" onclick="switchTab('orders')">
+                    <span class="tab-label">Orders</span>
+                    <span class="tab-value" id="val-orders-total">0</span>
+                </button>
+                <button class="tab-btn" id="tab-support_tickets" onclick="switchTab('support_tickets')">
+                    <span class="tab-label">Tickets</span>
+                    <span class="tab-value" id="val-tickets-total">0</span>
+                </button>
+            </div>
+            
+            <!-- Secondary Stats Section -->
+            <div class="metrics-grid">
+                <div class="metric-item">
+                    <div class="metric-label">Valid</div>
+                    <div class="metric-value" id="val-valid">0</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">Invalid</div>
+                    <div class="metric-value" id="val-invalid">0</div>
+                </div>
+                <div class="metric-item">
+                    <div class="metric-label">Error Rate</div>
+                    <div class="metric-value" id="val-error-rate">0.0%</div>
+                </div>
+            </div>
+            
+            <!-- Report Section -->
+            <div class="report-section">
+                <div class="section-title">Data Quality Report</div>
+                <div class="error-list" id="error-list-container">
+                    <div class="error-item empty-state">No validation errors found.</div>
+                </div>
+            </div>
+            
+            <!-- Actions Section -->
+            <div class="actions-section">
+                <button id="run-btn" onclick="runPipeline()">[ Run ETL Pipeline ]</button>
+            </div>
+            
+        </div>
+        
+        <!-- Execution Logs -->
+        <div class="log-container" id="log-container" style="display: none;">
+            <div class="log-header">
+                <span>Execution Logs</span>
+                <button onclick="closeLogs()" class="close-logs-btn">Clear [x]</button>
+            </div>
+            <pre class="log-output" id="log-output">Pipeline output will appear here...</pre>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>
