@@ -1,12 +1,16 @@
 import os
 import subprocess
-from flask import Flask, jsonify, render_template
+from fastapi import FastAPI
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 
-app = Flask(__name__, 
-            static_folder='static',
-            template_folder='templates')
+app = FastAPI()
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# Mount static files folder
+static_dir = os.path.join(BASE_DIR, 'dashboard', 'static')
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 def get_empty_data():
     return {
@@ -71,15 +75,16 @@ def load_data():
         print(f"Error loading data: {e}")
         return get_empty_data()
 
-@app.route('/')
+@app.get('/')
 def index():
-    return render_template('index.html')
+    template_path = os.path.join(BASE_DIR, 'dashboard', 'templates', 'index.html')
+    return FileResponse(template_path)
 
-@app.route('/api/metrics')
+@app.get('/api/metrics')
 def api_metrics():
-    return jsonify(load_data())
+    return load_data()
 
-@app.route('/api/run-pipeline', methods=['POST'])
+@app.post('/api/run-pipeline')
 def run_pipeline():
     try:
         main_py = os.path.join(BASE_DIR, 'main.py')
@@ -102,20 +107,24 @@ def run_pipeline():
                 
         metrics = load_data()
         
-        return jsonify({
+        return {
             'success': success,
             'output': output,
             'file_logs': file_logs,
             'metrics': metrics
-        })
+        }
     except Exception as e:
-        return jsonify({
-            'success': False,
-            'output': str(e),
-            'file_logs': '',
-            'metrics': get_empty_data()
-        }), 500
+        return JSONResponse(
+            status_code=500,
+            content={
+                'success': False,
+                'output': str(e),
+                'file_logs': '',
+                'metrics': get_empty_data()
+            }
+        )
 
 if __name__ == '__main__':
+    import uvicorn
     # Run server locally on port 5000
-    app.run(host='127.0.0.1', port=5000, debug=True)
+    uvicorn.run(app, host='127.0.0.1', port=5000)

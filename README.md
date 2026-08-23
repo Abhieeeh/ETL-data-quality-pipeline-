@@ -1,8 +1,20 @@
 # ETL Data Quality Pipeline
 
-[![ETL Pipeline test](https://github.com/Abhieeeh/ETL-data-quality-pipeline-/actions/workflows/tests.yml/badge.svg)](https://github.com/Abhieeeh/ETL-data-quality-pipeline-/actions/workflows/tests.yml)
+A modular, robust, and fully-tested ETL (Extract, Transform, Load) data quality pipeline built with Python, Pandas, and FastAPI. The pipeline is designed to ingest raw business datasets, clean and transform them, validate them against strict business rules, segregate valid and invalid records, and generate comprehensive data quality reports.
 
-A modular, robust, and fully-tested ETL (Extract, Transform, Load) data quality pipeline built with Python and Pandas. The pipeline is designed to ingest raw business datasets, clean and transform them, validate them against strict business rules, segregate valid and invalid records, and generate comprehensive data quality and error-breakdown reports.
+---
+
+## 📊 Interactive Quality Dashboard
+
+The project features a lightweight, real-time web dashboard built with **FastAPI** to visualize data quality metrics and trigger pipeline executions on demand.
+
+![ETL Data Quality Dashboard](images/dashboard.png)
+
+### Dashboard Features
+- **Live Metric Tracking**: Shows the total records processed, valid count, invalid count, and real-time error rates for Customers, Orders, and Support Tickets.
+- **Detailed Error Breakdown**: Lists specific validation rule violations and their frequency for the selected dataset.
+- **Run Pipeline On-Demand**: Executes `main.py` directly from the UI and prints the console/file execution logs in a terminal-like view.
+- **FastAPI Backend**: Serves static assets and provides JSON endpoints (`/api/metrics`, `/api/run-pipeline`) with high performance.
 
 ---
 
@@ -113,38 +125,47 @@ Located in [validate/validate_support_ticket.py](validate/validate_support_ticke
 
 ---
 
-## 🧪 Testing
+## 🚀 How to Run
 
-The pipeline relies on `pytest` to verify validation rules and ensure that formatting behaviors are correct.
-
-### Test Structure
-
-- **[tests/customers_test.py](tests/customers_test.py)**: Validates customer email format rules, age constraints (e.g., under 18 rejection), and field nullability.
-- **[tests/orders_test.py](tests/orders_test.py)**: Ensures orders validation catches negative amounts, quantities, and missing identifier keys.
-- **[tests/support_ticket_test.py](tests/support_ticket_test.py)**: Checks ticket validation logic for invalid dates, negative resolution times, and unresolved states.
-
-### Run Tests Locally
-
-Install dependencies and run the suite using `pytest`:
-
+### 1. Install Dependencies
 ```bash
 pip install -r requirements.txt
-python -m pytest
 ```
+
+### 2. Run the ETL Pipeline
+To execute the data quality pipeline and generate reports manually:
+```bash
+python main.py
+```
+
+### 3. Run the Dashboard
+To start the FastAPI web dashboard locally:
+```bash
+python dashboard/app.py
+```
+After starting the server, open your browser and navigate to: **`http://127.0.0.1:5000`**
 
 ---
 
-## 🚀 Continuous Integration (CI)
+## 🧪 Testing & CI
 
+### Run Tests Locally
+The pipeline relies on `pytest` to verify validation rules and ensure that formatting behaviors are correct.
+```bash
+python -m pytest
+```
+
+- **[tests/customers_test.py](tests/customers_test.py)**: Validates customer email format rules, age constraints, and field nullability.
+- **[tests/orders_test.py](tests/orders_test.py)**: Ensures orders validation catches negative amounts, quantities, and missing keys.
+- **[tests/support_ticket_test.py](tests/support_ticket_test.py)**: Checks ticket validation logic for invalid dates, negative resolution times, and unresolved states.
+
+### Continuous Integration (CI)
 This project has a GitHub Actions CI pipeline configured to run automatically on any `push` or `pull_request`. 
 
 The workflow is defined in **[.github/workflows/tests.yml](.github/workflows/tests.yml)** and performs the following steps:
 1. Provisions an `ubuntu-latest` runner.
 2. Injects Python `3.12`.
-3. Installs package dependencies specified in `requirements.txt`.
+3. Installs package dependencies.
 4. Runs the test suite via `pytest`.
 
-CI Status indicator badge:
-```markdown
 [![ETL Pipeline test](https://github.com/Abhieeeh/ETL-data-quality-pipeline-/actions/workflows/tests.yml/badge.svg)](https://github.com/Abhieeeh/ETL-data-quality-pipeline-/actions/workflows/tests.yml)
-```
