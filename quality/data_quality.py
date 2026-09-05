@@ -6,7 +6,7 @@ logger=logging.getLogger(__name__)
 def check_data_quality():
     logger.info("data quality pipeline started")
     
-    customers=pd.read_csv("./data/raw/customers.csv ")
+    customers=pd.read_csv("./data/raw/customers.csv")
     logger.info(f"customer data loaded for quality check, length : {len(customers)}")
     order=pd.read_csv("./data/raw/orders.csv")
     logger.info(f"order data loaded for quality check, length : {len(order)}")
